@@ -38,7 +38,7 @@ class DatabaseController extends Controller
 
     public function actionCreatetable()
     {
-        //echo 'createDB';
+        echo 'createDB';
         return $this->render('createTable');
     }
 
