@@ -14,7 +14,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
-class Database{
+class Database extends ActiveRecord {
 
     public function createDB() {
         return "New DB created";
