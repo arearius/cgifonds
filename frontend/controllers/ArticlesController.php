@@ -10,6 +10,7 @@ namespace frontend\controllers;
 
 use yii\web\Controller;
 use common\models\Articles;
+use frontend\models\NewCommentForm;
 //use common\models\Article;
 
 class ArticlesController extends Controller
@@ -30,8 +31,20 @@ class ArticlesController extends Controller
     {
         $article = Articles::find()->where(['id' => $id])->all()[0];
         if (count($article) > 0) {
-            //$model = new Article();
-            return $this->render('article', ['article' => $article]);
+
+            $model = new NewCommentForm();
+            return $this->render('article', ['article' => $article, 'model' => $model]);
+
+        } else {
+            echo 'Нет статей для отображения';
+        }
+    }
+
+    public function actionShowalladmin()
+    {
+        $articles = Articles::find()->all();
+        if (count($articles) > 0) {
+            return $this->render('//admin/index', ['articles' => $articles]);
         } else {
             echo 'Нет статей для отображения';
         }

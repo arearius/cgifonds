@@ -59,10 +59,16 @@ echo "Done!"
 info "Initailize databases for MySQL"
 mysql -uroot <<< "CREATE DATABASE yii2"
 mysql -uroot <<< "CREATE DATABASE yii2_test"
+
+info "add table articles"
 mysql -uroot <<< "CREATE TABLE `articles` (`id` INT(11) NOT NULL AUTO_INCREMENT, `header` CHAR(30) NOT NULL, `about` TEXT NOT NULL, `content` LONGTEXT NOT NULL, `changedate` TIMESTAMP NOT NULL, `status` BOOLEAN NOT NULL, PRIMARY KEY(`id`));"
+info "add table comments"
+mysql -uroot <<< "CREATE TABLE `comments` (`id` INT(11) NOT NULL AUTO_INCREMENT, `article_id` INT(11) NOT NULL, `content` LONGTEXT NOT NULL, PRIMARY KEY(`id`));"
 
 info "feeling table articles test data"
 mysql -uroot <<< "INSERT INTO `articles` (`id`, `header`, `about`, `content`, `changedate`, `status`) VALUES (1, 'test header', 'test about', 'test content', NULL , '1');"
+info "feeling table comments test data"
+mysql -uroot <<< "INSERT INTO `comments` (`id`, `article_id`, `content`) VALUES ('1', '1', 'comment content');"
 
 
 echo "Done!"

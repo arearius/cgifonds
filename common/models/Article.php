@@ -10,10 +10,16 @@ namespace common\models;
 
 use Yii;
 use yii\base\Model;
+use yii\db\ActiveRecord;
 
-class Article extends Model
+class Article extends ActiveRecord
 {
     public $header;
     public $about;
+
+    public static function tableName()
+    {
+        return "articles";
+    }
 
 }

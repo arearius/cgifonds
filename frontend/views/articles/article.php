@@ -1,6 +1,10 @@
 <?php
-
+header("Access-Control-Allow-Origin *");
 $this->title = 'Статья';
+
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+
 
 ?>
 
@@ -17,22 +21,29 @@ $this->title = 'Статья';
             <div class="article-one-content">
                 <?php echo $article->content; ?>
             </div>
-            <div class="article-one-comments">
-                <a href="#" onclick="$.ajax({
-                                        type: 'POST',
-                                        url: <?php Yii::$app->urlManager->createUrl(["articles/getcomments", 'id' => $article->id]) ?>,
-                                        data: 'name=Andrew&nickname=Aramis',
-                                        success: function(data){
-                                                $('.article-one-comments').html(data);
-                                            }
-                                        });">Посмотреть комментарии</a>
-            </div>
-            <div class="article-one-comments2">
+            <div class="article-one-get-comments">
                 <a href="#" >Посмотреть комментарии</a>
             </div>
             <div class="article-one-comments">
-
             </div>
+            <div class="add-comment" style="display: none">
+                <h3><?= Html::encode("Добавить комментарий к статье:") ?></h3>
+
+                <div class="row">
+                    <div>
+                        <?php $form = ActiveForm::begin(['id' => 'add-comment']); ?>
+
+                        <?= $form->field($model, 'content')->textarea(['autofocus' => true])?>
+
+                        <div class="form-group">
+                            <?= Html::button('Добавить комментарий', ['class' => 'btn btn-primary send-comment-button', 'name' => 'send-comment-button']) ?>
+                        </div>
+
+                        <?php ActiveForm::end(); ?>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
 
@@ -40,10 +51,40 @@ $this->title = 'Статья';
 
 <?php
 $js = <<<JS
-    $('.article-one-comments2').on('click', function(){
-         $('.article-one-comments3').html('test');
-            $.get('http://cgifonds/index.php?r=articles%2Fgetone&id=1', function(data) {
+    $('.article-one-get-comments').on('click', function(){
+         //$('.article-one-comments').html('test');
+            var url = 'http://backend.cgifonds/index.php?r=comments/getallforarticle&articleId=$article->id';
+            console.log(url);
+            $.get('http://backend.cgifonds/index.php?r=comments/getallforarticle&articleId=$article->id', function(data) {
                 console.log(data);
+                var comments = JSON.parse(data);
+                
+                for (var i=0; i<comments['count']; i++ ) {
+                    var newComment = '<div class="article-comment">' + comments[i]['content'] +  '</div>';
+                    $('.article-one-comments').append(newComment);
+                    $('.add-comment').show();
+                }
+                
+                console.log(comments);
+            });
+        return false;
+    });
+    $('.send-comment-button').on('click', function(){
+            var data = new Array();
+            data['articleId'] = 1;
+            data['content'] = $('#newcommentform-content')[0].value;
+            console.log(data);
+            console.log(JSON.stringify(data));
+            $.post("http://backend.cgifonds/index.php?r=comments/add",
+            {
+                article_id: $article->id,
+                content: $('#newcommentform-content')[0].value
+            },
+            function(data){
+                if (data == 'saved'){
+                    var newComment = '<div class="article-comment">' + $('#newcommentform-content')[0].value +  '</div>';
+                    $('.article-one-comments').append(newComment);
+                }
             });
         return false;
     });
