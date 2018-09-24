@@ -36,14 +36,11 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
+        'urlManagerBackend' => [
+            'enablePrettyUrl' => false,
+            'class' => 'yii\web\UrlManager',
+            'baseUrl' => 'http://backend.cgifonds'
+        ]
     ],
     'params' => $params,
     'defaultRoute'=> 'articles/showall',

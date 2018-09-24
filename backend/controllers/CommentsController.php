@@ -58,9 +58,14 @@ class CommentsController extends Controller
         return json_encode($comments);
     }
 
+    public function actionGetbyid($commentId)
+    {
+        $comment = Comments::find()->where(['id' => $commentId])->asArray()->all();
+        return json_encode($comment);
+    }
+
     public function actionAdd()
     {
-
         $comment = new Comments();
         $comment->article_id = $_POST['article_id'];
         $comment->content =  $_POST['content'];
@@ -70,6 +75,21 @@ class CommentsController extends Controller
         } else {
             return 'not saved';
         }
+    }
+
+    public function actionDelete($comment_id)
+    {
+        $comment = Comments::findOne(['id' => $comment_id]);
+        $comment->delete();
+        return true;
+    }
+
+    public function actionUpdate()
+    {
+        $comment = Comments::findOne(['id' => $_POST['comment_id']]);
+        $comment->content = $_POST['content'];
+        $comment->save();
+        return true;
     }
 
 }

@@ -62,9 +62,9 @@ $js = <<<JS
                 for (var i=0; i<comments['count']; i++ ) {
                     var newComment = '<div class="article-comment">' + comments[i]['content'] +  '</div>';
                     $('.article-one-comments').append(newComment);
-                    $('.add-comment').show();
+                    
                 }
-                
+                $('.add-comment').show();
                 console.log(comments);
             });
         return false;

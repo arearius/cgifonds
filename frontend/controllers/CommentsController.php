@@ -22,11 +22,4 @@ class CommentsController extends Controller
 
     }
 
-    public function actionAdd($article_id)
-    {
-        return json_encode($_REQUEST);
-        //$comment = new Comment($article_id, $content);
-        //return $comment->save() ? $comment : null;
-    }
-
 }

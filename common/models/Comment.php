@@ -19,30 +19,6 @@ use yii\db\ActiveRecord;
  */
 class Comment extends ActiveRecord
 {
-    private $content;
-    private $article_id;
 
-    public function __construct($article_id, $content, array $config = [])
-    {
-        parent::__construct($config);
-        $this->article_id = $article_id;
-        $this->content = $content;
-    }
-
-    public static function tableName()
-    {
-        return 'comments';
-    }
-
-    public function validateContent($content)
-    {
-        //return Yii::$app->security->validatePassword($password, $this->password_hash);
-        return true;
-    }
-
-    public function add()
-    {
-        return $this->save() ? $this : null;
-    }
 
 }

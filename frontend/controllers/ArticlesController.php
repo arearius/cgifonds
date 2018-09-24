@@ -8,9 +8,12 @@
 
 namespace frontend\controllers;
 
+use common\models\Comments;
+use frontend\models\NewArticleForm;
 use yii\web\Controller;
 use common\models\Articles;
 use frontend\models\NewCommentForm;
+use frontend\models\ChangeCommentForm;
 //use common\models\Article;
 
 class ArticlesController extends Controller
@@ -29,11 +32,11 @@ class ArticlesController extends Controller
 
     public function actionGetone($id)
     {
-        $article = Articles::find()->where(['id' => $id])->all()[0];
+        $article = Articles::find()->where(['id' => $id])->all();
         if (count($article) > 0) {
 
             $model = new NewCommentForm();
-            return $this->render('article', ['article' => $article, 'model' => $model]);
+            return $this->render('article', ['article' => $article[0], 'model' => $model]);
 
         } else {
             echo 'Нет статей для отображения';
@@ -44,7 +47,22 @@ class ArticlesController extends Controller
     {
         $articles = Articles::find()->all();
         if (count($articles) > 0) {
-            return $this->render('//admin/index', ['articles' => $articles]);
+            $model = new NewArticleForm();
+            return $this->render('//admin/index', ['articles' => $articles, 'model' => $model ]);
+        } else {
+            echo 'Нет статей для отображения';
+        }
+    }
+
+    public function actionGetoneadmin($id)
+    {
+        $article = Articles::find()->where(['id' => $id])->all();
+        $comments = Comments::find()->where(['article_id' => $id])->asArray()->all();
+        if (count($article) > 0) {
+
+            $model = new ChangeCommentForm();
+            return $this->render('//admin/article', ['article' => $article[0], 'comments' => $comments ,'model' => $model]);
+
         } else {
             echo 'Нет статей для отображения';
         }
