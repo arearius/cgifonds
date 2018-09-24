@@ -16,10 +16,27 @@ $this->title = 'Материалы админ панель';
 <div class="articles-index">
 
     <h1>Административная панель</h1>
-    <h3>Показ всех статей. Количество статей: <?php echo count($articles) ?> </h3>
     <br>
+    <div class="article-table">
+        <div class="article-row">
+            <div class="article-cell article-id">
+                Id
+            </div>
+            <div class="article-cell article-changedate">
+                Дата создания
+            </div>
+            <div class="article-cell article-status">
+                Статус
+            </div>
+            <div class="article-cell article-header">
+                Заголовок
+            </div>
+            <div class="article-cell article-delete">
+
+            </div>
+        </div>
     <?php for ($articleIndex = 0; $articleIndex < count($articles); $articleIndex++): ?>
-       <div class="article-table">
+
            <div class="article-row">
                <div class="article-cell article-id">
                    <a href="<?=Yii::$app->urlManager->createUrl(["articles/getoneadmin", 'id' => $articles[$articleIndex]->id])?>"><?php echo $articles[$articleIndex]->id; ?></a>
@@ -37,11 +54,12 @@ $this->title = 'Материалы админ панель';
                        <a href="#" class="article-delete" data-article-id="<?php echo $articles[$articleIndex]->id?>" >Delete</a>
                </div>
            </div>
-       </div>
+
     <?php endfor; ?>
+    </div>
 
     <div class="add-article">
-        <h3><?= Html::encode("Create new article") ?></h3>
+        <h3><?= Html::encode("Добавить новую статью") ?></h3>
 
         <div class="row">
             <div>
@@ -56,7 +74,7 @@ $this->title = 'Материалы админ панель';
                 <?= $form->field($model, 'content')->textarea()?>
 
                 <div class="form-group">
-                    <?= Html::button('Create', ['class' => 'btn btn-primary create-article-button', 'name' => 'send-comment-button']) ?>
+                    <?= Html::button('Создать', ['class' => 'btn btn-primary create-article-button', 'name' => 'send-comment-button']) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>
@@ -73,7 +91,7 @@ $js = <<<JS
         console.log(articleId);        
         $.get('http://backend.cgifonds/index.php?r=articles/delete&articleId=' + articleId, function(data) {
                 console.log(data);
-                $('a.article-delete').parent().hide();
+                location.reload();
         });
     });
     $('.create-article-button').on('click', function(){
@@ -86,6 +104,7 @@ $js = <<<JS
             },
             function(data){
                console.log(data);
+               location.reload();
             });
     });
 JS;

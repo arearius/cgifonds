@@ -9,9 +9,6 @@ use yii\bootstrap\ActiveForm;
 
 <div class="articles-index">
 
-    <h1>Показ одной статьи.</h1>
-    <br>
-
     <div class="article-one">
         <div class="article-one-id">
             <?php echo $article->id; ?>
@@ -36,17 +33,17 @@ use yii\bootstrap\ActiveForm;
                             <?php echo $comments[$commentsIndex]['content']; ?>
                         </div>
                         <div class="comment-cell comment-edit" data-comment-id="<?php echo $comments[$commentsIndex]['id'] ?>">
-                            <a class="comment-edit" href=# >Edit</a>
+                            <a class="comment-edit" href=# >Редактировать</a>
                         </div>
                         <div class="comment-cell comment-delete">
-                            <a <?php echo 'href="http://backend.cgifonds/index.php?r=comments/delete&comment_id=' . $comments[$commentsIndex]['id'] . '"'?>">Delete</a>
+                            <a <?php echo 'href="http://backend.cgifonds/index.php?r=comments/delete&comment_id=' . $comments[$commentsIndex]['id'] . '"'?>">Удалить</a>
                         </div>
                     </div>
                 </div>
             <?php endfor; ?>
         </div>
         <div class="change-comment" style="display: none">
-            <h3><?= Html::encode("Change комментарий к статье:") ?></h3>
+            <h3><?= Html::encode("Изменить комментарий к статье:") ?></h3>
 
             <div class="row">
                 <div>
@@ -55,7 +52,7 @@ use yii\bootstrap\ActiveForm;
                     <?= $form->field($model, 'content')->textarea(['autofocus' => true])?>
 
                     <div class="form-group">
-                        <?= Html::button('Change комментарий', ['class' => 'btn btn-primary change-comment-button', 'name' => 'change-comment-button']) ?>
+                        <?= Html::button('Изменить комментарий', ['class' => 'btn btn-primary change-comment-button', 'name' => 'change-comment-button']) ?>
                     </div>
 
                     <?php ActiveForm::end(); ?>
