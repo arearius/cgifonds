@@ -9,6 +9,7 @@
 namespace backend\controllers;
 
 use common\models\Articles;
+use common\models\Comments;
 use yii\web\Controller;
 
 
@@ -51,6 +52,10 @@ class ArticlesController extends Controller
     public function actionDelete($articleId)
     {
         $article = Articles::findOne(['id' => $articleId]);
+        $comments = Comments::find()->where(['article_id' => $articleId])->all();
+        foreach ($comments as $comment) {
+            $comment->delete();
+        }
         $article->delete();
     }
 
