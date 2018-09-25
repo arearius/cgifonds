@@ -16,10 +16,10 @@ use yii\bootstrap\ActiveForm;
         <div class="article-one">
 
             <div class="article-one-header">
-                <?php echo $article->header; ?>
+                Header: <?php echo $article->header; ?>
             </div>
             <div class="article-one-content">
-                <?php echo $article->content; ?>
+                Content: <?php echo $article->content; ?>
             </div>
             <div class="article-one-get-comments">
                 <a href="#" >Посмотреть комментарии</a>
@@ -60,7 +60,7 @@ $js = <<<JS
                 var comments = JSON.parse(data);
                 
                 for (var i=0; i<comments['count']; i++ ) {
-                    var newComment = '<div class="article-comment">' + comments[i]['content'] +  '</div>';
+                    var newComment = '<div class="article-comment">Comment: ' + comments[i]['content'] +  '</div>';
                     $('.article-one-comments').append(newComment);
                     
                 }
@@ -82,7 +82,7 @@ $js = <<<JS
             },
             function(data){
                 if (data == 'saved'){
-                    var newComment = '<div class="article-comment">' + $('#newcommentform-content')[0].value +  '</div>';
+                    var newComment = '<div class="article-comment">Comment: ' + $('#newcommentform-content')[0].value +  '</div>';
                     $('.article-one-comments').append(newComment);
                 }
             });

@@ -11,26 +11,26 @@ use yii\bootstrap\ActiveForm;
 
     <div class="article-one">
         <div class="article-one-id">
-            <?php echo $article->id; ?>
+            ID: <?php echo $article->id; ?>
         </div>
         <div class="article-one-changedate">
-            <?php echo $article->changedate; ?>
+            Change date: <?php echo $article->changedate; ?>
         </div>
         <div class="article-one-status">
-            <?php echo $article->status; ?>
+            Status: <?php echo $article->status; ?>
         </div>
         <div class="article-one-header">
-            <?php echo $article->header; ?>
+            Header: <?php echo $article->header; ?>
         </div>
         <div class="article-one-content">
-            <?php echo $article->content; ?>
+            Content: <?php echo $article->content; ?>
         </div>
         <div class="article-one-comments">
             <?php for ($commentsIndex = 0; $commentsIndex < count($comments); $commentsIndex++): ?>
                 <div class="comments-table">
                     <div class="comment-row">
                         <div class="comment-cell-text">
-                            <?php echo $comments[$commentsIndex]['content']; ?>
+                            Comment: <?php echo $comments[$commentsIndex]['content']; ?>
                         </div>
                         <div class="comment-cell comment-edit" data-comment-id="<?php echo $comments[$commentsIndex]['id'] ?>">
                             <a class="comment-edit" href=# >Редактировать</a>
